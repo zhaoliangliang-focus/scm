@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.mapper.ScmCategoryInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.scm.model.ScmCategoryInfo" >
+    <id column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="cat_code" property="catCode" jdbcType="VARCHAR" />
+    <result column="cat_name" property="catName" jdbcType="VARCHAR" />
+    <result column="cat_level" property="catLevel" jdbcType="VARCHAR" />
+    <result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cat_id, cat_code, cat_name, cat_level, parent_code, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_category_info
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scm_category_info
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.scm.model.ScmCategoryInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="catId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_category_info (cat_code, cat_name, cat_level, 
+      parent_code, add_time, update_time
+      )
+    values (#{catCode,jdbcType=VARCHAR}, #{catName,jdbcType=VARCHAR}, #{catLevel,jdbcType=VARCHAR}, 
+      #{parentCode,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.scm.model.ScmCategoryInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="catId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_category_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="catCode != null" >
+        cat_code,
+      </if>
+      <if test="catName != null" >
+        cat_name,
+      </if>
+      <if test="catLevel != null" >
+        cat_level,
+      </if>
+      <if test="parentCode != null" >
+        parent_code,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="catCode != null" >
+        #{catCode,jdbcType=VARCHAR},
+      </if>
+      <if test="catName != null" >
+        #{catName,jdbcType=VARCHAR},
+      </if>
+      <if test="catLevel != null" >
+        #{catLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scm.model.ScmCategoryInfo" >
+    update scm_category_info
+    <set >
+      <if test="catCode != null" >
+        cat_code = #{catCode,jdbcType=VARCHAR},
+      </if>
+      <if test="catName != null" >
+        cat_name = #{catName,jdbcType=VARCHAR},
+      </if>
+      <if test="catLevel != null" >
+        cat_level = #{catLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        parent_code = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = now(),
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scm.model.ScmCategoryInfo" >
+    update scm_category_info
+    set cat_code = #{catCode,jdbcType=VARCHAR},
+      cat_name = #{catName,jdbcType=VARCHAR},
+      cat_level = #{catLevel,jdbcType=VARCHAR},
+      parent_code = #{parentCode,jdbcType=VARCHAR},
+      update_time = now()
+    where cat_id = #{catId,jdbcType=INTEGER}
+  </update>
+</mapper>

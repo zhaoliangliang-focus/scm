@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.mapper.ScmProdSkuDefineMapper" >
+  <resultMap id="BaseResultMap" type="com.scm.model.ScmProdSkuDefine" >
+    <id column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="sku_price" property="skuPrice" jdbcType="REAL" />
+    <result column="price_unit" property="priceUnit" jdbcType="VARCHAR" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="min_batch_num" property="minBatchNum" jdbcType="INTEGER" />
+    <result column="quality" property="quality" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sku_id, sku_name, prod_id, sku_price, price_unit, stock, min_batch_num, quality, 
+    add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_prod_sku_define
+    where sku_id = #{skuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scm_prod_sku_define
+    where sku_id = #{skuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.scm.model.ScmProdSkuDefine" >
+    <selectKey resultType="java.lang.Integer" keyProperty="skuId">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_prod_sku_define (sku_name, prod_id, sku_price, 
+      price_unit, stock, min_batch_num, 
+      quality, add_time, update_time
+      )
+    values (#{skuName,jdbcType=VARCHAR}, #{prodId,jdbcType=INTEGER}, #{skuPrice,jdbcType=REAL}, 
+      #{priceUnit,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{minBatchNum,jdbcType=INTEGER}, 
+      #{quality,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.scm.model.ScmProdSkuDefine" >
+    <selectKey resultType="java.lang.Integer" keyProperty="skuId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_prod_sku_define
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="skuName != null" >
+        sku_name,
+      </if>
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="skuPrice != null" >
+        sku_price,
+      </if>
+      <if test="priceUnit != null" >
+        price_unit,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="minBatchNum != null" >
+        min_batch_num,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="skuPrice != null" >
+        #{skuPrice,jdbcType=REAL},
+      </if>
+      <if test="priceUnit != null" >
+        #{priceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="minBatchNum != null" >
+        #{minBatchNum,jdbcType=INTEGER},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scm.model.ScmProdSkuDefine" >
+    update scm_prod_sku_define
+    <set >
+      <if test="skuName != null" >
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="skuPrice != null" >
+        sku_price = #{skuPrice,jdbcType=REAL},
+      </if>
+      <if test="priceUnit != null" >
+        price_unit = #{priceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="minBatchNum != null" >
+        min_batch_num = #{minBatchNum,jdbcType=INTEGER},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = now(),
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where sku_id = #{skuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scm.model.ScmProdSkuDefine" >
+    update scm_prod_sku_define
+    set sku_name = #{skuName,jdbcType=VARCHAR},
+      prod_id = #{prodId,jdbcType=INTEGER},
+      sku_price = #{skuPrice,jdbcType=REAL},
+      price_unit = #{priceUnit,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      min_batch_num = #{minBatchNum,jdbcType=INTEGER},
+      quality = #{quality,jdbcType=VARCHAR},
+      update_time = now()
+    where sku_id = #{skuId,jdbcType=INTEGER}
+  </update>
+</mapper>

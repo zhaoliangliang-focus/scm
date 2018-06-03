@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.mapper.ScmProductInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.scm.model.ScmProductInfo" >
+    <id column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="prod_name" property="prodName" jdbcType="VARCHAR" />
+    <result column="cat_code" property="catCode" jdbcType="VARCHAR" />
+    <result column="com_id" property="comId" jdbcType="INTEGER" />
+    <result column="prod_desc" property="prodDesc" jdbcType="VARCHAR" />
+    <result column="shipping_type" property="shippingType" jdbcType="VARCHAR" />
+    <result column="free_shipping" property="freeShipping" jdbcType="INTEGER" />
+    <result column="major" property="major" jdbcType="INTEGER" />
+    <result column="credible" property="credible" jdbcType="INTEGER" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prod_id, prod_name, cat_code, com_id, prod_desc, shipping_type, free_shipping, major, 
+    credible, remark1, remark2, remark3, remark4, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_product_info
+    where prod_id = #{prodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scm_product_info
+    where prod_id = #{prodId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.scm.model.ScmProductInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="prodId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_product_info (prod_name, cat_code, com_id, 
+      prod_desc, shipping_type, free_shipping, 
+      major, credible, remark1, 
+      remark2, remark3, remark4, 
+      add_time, update_time)
+    values (#{prodName,jdbcType=VARCHAR}, #{catCode,jdbcType=VARCHAR}, #{comId,jdbcType=INTEGER}, 
+      #{prodDesc,jdbcType=VARCHAR}, #{shippingType,jdbcType=VARCHAR}, #{freeShipping,jdbcType=INTEGER}, 
+      #{major,jdbcType=INTEGER}, #{credible,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.scm.model.ScmProductInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="prodId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_product_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prodName != null" >
+        prod_name,
+      </if>
+      <if test="catCode != null" >
+        cat_code,
+      </if>
+      <if test="comId != null" >
+        com_id,
+      </if>
+      <if test="prodDesc != null" >
+        prod_desc,
+      </if>
+      <if test="shippingType != null" >
+        shipping_type,
+      </if>
+      <if test="freeShipping != null" >
+        free_shipping,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="credible != null" >
+        credible,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prodName != null" >
+        #{prodName,jdbcType=VARCHAR},
+      </if>
+      <if test="catCode != null" >
+        #{catCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        #{comId,jdbcType=INTEGER},
+      </if>
+      <if test="prodDesc != null" >
+        #{prodDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingType != null" >
+        #{shippingType,jdbcType=VARCHAR},
+      </if>
+      <if test="freeShipping != null" >
+        #{freeShipping,jdbcType=INTEGER},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=INTEGER},
+      </if>
+      <if test="credible != null" >
+        #{credible,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scm.model.ScmProductInfo" >
+    update scm_product_info
+    <set >
+      <if test="prodName != null" >
+        prod_name = #{prodName,jdbcType=VARCHAR},
+      </if>
+      <if test="catCode != null" >
+        cat_code = #{catCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null" >
+        com_id = #{comId,jdbcType=INTEGER},
+      </if>
+      <if test="prodDesc != null" >
+        prod_desc = #{prodDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingType != null" >
+        shipping_type = #{shippingType,jdbcType=VARCHAR},
+      </if>
+      <if test="freeShipping != null" >
+        free_shipping = #{freeShipping,jdbcType=INTEGER},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=INTEGER},
+      </if>
+      <if test="credible != null" >
+        credible = #{credible,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = now(),
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where prod_id = #{prodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scm.model.ScmProductInfo" >
+    update scm_product_info
+    set prod_name = #{prodName,jdbcType=VARCHAR},
+      cat_code = #{catCode,jdbcType=VARCHAR},
+      com_id = #{comId,jdbcType=INTEGER},
+      prod_desc = #{prodDesc,jdbcType=VARCHAR},
+      shipping_type = #{shippingType,jdbcType=VARCHAR},
+      free_shipping = #{freeShipping,jdbcType=INTEGER},
+      major = #{major,jdbcType=INTEGER},
+      credible = #{credible,jdbcType=INTEGER},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      update_time = now()
+    where prod_id = #{prodId,jdbcType=INTEGER}
+  </update>
+  <!-- 查询全部产品 -->
+  <select id="selectAllProducts" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_product_info
+  </select>
+</mapper>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.mapper.ScmCompanyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.scm.model.ScmCompanyInfo" >
+    <id column="com_id" property="comId" jdbcType="INTEGER" />
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="com_desc" property="comDesc" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="taobao" property="taobao" jdbcType="VARCHAR" />
+    <result column="tmall" property="tmall" jdbcType="VARCHAR" />
+    <result column="official_website" property="officialWebsite" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="come_from" property="comeFrom" jdbcType="VARCHAR" />
+    <result column="credible" property="credible" jdbcType="INTEGER" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    com_id, com_name, com_desc, address, province, city, contacts, telphone, mobile, 
+    weixin, qq, taobao, tmall, official_website, business_scope, come_from, credible, 
+    remark1, remark2, remark3, remark4, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_company_info
+    where com_id = #{comId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scm_company_info
+    where com_id = #{comId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.scm.model.ScmCompanyInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="comId">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_company_info (com_name, com_desc, address, 
+      province, city, contacts, 
+      telphone, mobile, weixin, 
+      qq, taobao, tmall, 
+      official_website, business_scope, come_from, 
+      credible, remark1, remark2, 
+      remark3, remark4, add_time, 
+      update_time)
+    values (#{comName,jdbcType=VARCHAR}, #{comDesc,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, 
+      #{telphone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{taobao,jdbcType=VARCHAR}, #{tmall,jdbcType=VARCHAR}, 
+      #{officialWebsite,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, #{comeFrom,jdbcType=VARCHAR}, 
+      #{credible,jdbcType=INTEGER}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, now(), 
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.scm.model.ScmCompanyInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="comId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_company_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comName != null" >
+        com_name,
+      </if>
+      <if test="comDesc != null" >
+        com_desc,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="taobao != null" >
+        taobao,
+      </if>
+      <if test="tmall != null" >
+        tmall,
+      </if>
+      <if test="officialWebsite != null" >
+        official_website,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="comeFrom != null" >
+        come_from,
+      </if>
+      <if test="credible != null" >
+        credible,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comName != null" >
+        #{comName,jdbcType=VARCHAR},
+      </if>
+      <if test="comDesc != null" >
+        #{comDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="taobao != null" >
+        #{taobao,jdbcType=VARCHAR},
+      </if>
+      <if test="tmall != null" >
+        #{tmall,jdbcType=VARCHAR},
+      </if>
+      <if test="officialWebsite != null" >
+        #{officialWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="comeFrom != null" >
+        #{comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="credible != null" >
+        #{credible,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scm.model.ScmCompanyInfo" >
+    update scm_company_info
+    <set >
+      <if test="comName != null" >
+        com_name = #{comName,jdbcType=VARCHAR},
+      </if>
+      <if test="comDesc != null" >
+        com_desc = #{comDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="taobao != null" >
+        taobao = #{taobao,jdbcType=VARCHAR},
+      </if>
+      <if test="tmall != null" >
+        tmall = #{tmall,jdbcType=VARCHAR},
+      </if>
+      <if test="officialWebsite != null" >
+        official_website = #{officialWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="comeFrom != null" >
+        come_from = #{comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="credible != null" >
+        credible = #{credible,jdbcType=INTEGER},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = now(),
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where com_id = #{comId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scm.model.ScmCompanyInfo" >
+    update scm_company_info
+    set com_name = #{comName,jdbcType=VARCHAR},
+      com_desc = #{comDesc,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      taobao = #{taobao,jdbcType=VARCHAR},
+      tmall = #{tmall,jdbcType=VARCHAR},
+      official_website = #{officialWebsite,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      come_from = #{comeFrom,jdbcType=VARCHAR},
+      credible = #{credible,jdbcType=INTEGER},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      update_time = now()
+    where com_id = #{comId,jdbcType=INTEGER}
+  </update>
+  <!-- 查询全部公司 -->
+   <select id="selectAllCompanys" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_company_info
+  </select>
+</mapper>

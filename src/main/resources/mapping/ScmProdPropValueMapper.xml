@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scm.mapper.ScmProdPropValueMapper" >
+  <resultMap id="BaseResultMap" type="com.scm.model.ScmProdPropValue" >
+    <id column="prop_value_id" property="propValueId" jdbcType="INTEGER" />
+    <result column="prop_value_name" property="propValueName" jdbcType="VARCHAR" />
+    <result column="prop_type_id" property="propTypeId" jdbcType="INTEGER" />
+    <result column="application" property="application" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prop_value_id, prop_value_name, prop_type_id, application, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scm_prod_prop_value
+    where prop_value_id = #{propValueId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scm_prod_prop_value
+    where prop_value_id = #{propValueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.scm.model.ScmProdPropValue" >
+    <selectKey resultType="java.lang.Integer" keyProperty="propValueId"  >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_prod_prop_value (prop_value_name, prop_type_id, application, 
+      add_time, update_time)
+    values (#{propValueName,jdbcType=VARCHAR}, #{propTypeId,jdbcType=INTEGER}, #{application,jdbcType=VARCHAR}, 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.scm.model.ScmProdPropValue" >
+    <selectKey resultType="java.lang.Integer" keyProperty="propValueId">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into scm_prod_prop_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="propValueName != null" >
+        prop_value_name,
+      </if>
+      <if test="propTypeId != null" >
+        prop_type_id,
+      </if>
+      <if test="application != null" >
+        application,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="propValueName != null" >
+        #{propValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="propTypeId != null" >
+        #{propTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="application != null" >
+        #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scm.model.ScmProdPropValue" >
+    update scm_prod_prop_value
+    <set >
+      <if test="propValueName != null" >
+        prop_value_name = #{propValueName,jdbcType=VARCHAR},
+      </if>
+      <if test="propTypeId != null" >
+        prop_type_id = #{propTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="application != null" >
+        application = #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = now(),
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where prop_value_id = #{propValueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scm.model.ScmProdPropValue" >
+    update scm_prod_prop_value
+    set prop_value_name = #{propValueName,jdbcType=VARCHAR},
+      prop_type_id = #{propTypeId,jdbcType=INTEGER},
+      application = #{application,jdbcType=VARCHAR},
+      update_time = now()
+    where prop_value_id = #{propValueId,jdbcType=INTEGER}
+  </update>
+</mapper>
